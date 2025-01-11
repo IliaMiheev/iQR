@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор QR-кодов</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <h1>Генератор QR-кодов</h1>
+    <input type="text" id="text-input" placeholder="Введите текст">
+    <br>
+    <button id="generate-btn">Сгенерировать QR-код</button>
+    <button id="download-qr-btn">Скачать QR-код</button>
+    <button id="del-qr-btn">Очистить поля</button>
+    <p id="error"></p>
+    <div id="qr-code"></div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
