@@ -1,3 +1,8 @@
+::selection {
+    background-color: orangered;
+    color: white;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -10,7 +15,8 @@ h1 {
     color: orangered;
 }
 
-textarea, button {
+textarea,
+button {
     padding: 10px;
     margin: 10px;
     border: 1px solid #333;
@@ -31,6 +37,10 @@ button {
     background-color: orangered;
     color: #fff;
     cursor: pointer;
+}
+
+button::selection {
+    background-color: rgb(172, 46, 0);
 }
 
 button:active {
