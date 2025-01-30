@@ -32,13 +32,6 @@ function generateQRCode() {
 // Обработчик клика по кнопке "Сгенерировать"
 generateBtn.addEventListener('click', generateQRCode);
 
-// Обработчик нажатия клавиши "Enter" в поле ввода
-textInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        generateQRCode();
-    }
-});
-
 // Скачивание QR-кода
 downloadQrBtn.addEventListener('click', () => {
     text = textInput.value.slice(0, 20)
