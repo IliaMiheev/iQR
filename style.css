@@ -10,7 +10,7 @@ h1 {
     color: #333;
 }
 
-input, button {
+textarea, button {
     padding: 10px;
     margin: 10px;
     border: 1px solid #ccc;
@@ -18,18 +18,19 @@ input, button {
     font-size: 16px;
 }
 
-input {
-    width: 300px;
+textarea {
+    /* width: 300px; */
+    color: orangered;
 }
 
 button {
-    background-color: #007bff;
+    background-color: orangered;
     color: #fff;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+button:active {
+    background-color: rgb(135, 36, 0);
 }
 
 #qr-code {
