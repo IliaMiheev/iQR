@@ -4,6 +4,9 @@ const downloadQrBtn = document.getElementById('download-qr-btn');
 const qrCodeDiv = document.getElementById('qr-code');
 const delBtn = document.getElementById('del-qr-btn');
 const textError = document.getElementById('error');
+const zoomInBtn = document.getElementById('zoom-in-btn');
+const zoomOutBtn = document.getElementById('zoom-out-btn');
+let scale = 1; // Начальный масштаб
 
 // Получить cookie
 function getCookie(name) {
@@ -37,7 +40,7 @@ function generateQRCode() {
     if (!text) {
         logMessage('Введите текст для генерации QR-кода!');
         return;
-    }
+    };
     qrCodeDiv.innerHTML = '';
     QRCode.toCanvas(text, (error, canvas) => {
         if (error) {
@@ -47,6 +50,8 @@ function generateQRCode() {
         }
         qrCodeDiv.appendChild(canvas);
         logMessage('');
+        canvas.style.transform = `scale(${scale})`; 
+        canvas.style.transformOrigin = 'top';
     });
 }
 
@@ -78,5 +83,39 @@ delBtn.addEventListener('click', () => {
     textInput.value = '';
     qrCodeDiv.innerHTML = '';
     textError.innerText = '';
-    document.cookie = 'text='
+    scale = 1;
+    document.cookie = 'text=';
+});
+
+function chengeScale(scale) {
+    const canvas = qrCodeDiv.querySelector('canvas');
+    logMessage('')
+    if (canvas) {
+        canvas.style.transform = `scale(${scale})`;
+    }else {
+        logMessage('До генерации QR кода маштаб менять нельзя')
+    }
+};
+
+// Увеличение QR-кода
+zoomInBtn.addEventListener('click', () => {
+    const canvas = qrCodeDiv.querySelector('canvas');
+    let canvasWidth = canvas.getBoundingClientRect().width;
+    if (canvasWidth+0.1 < (window.innerWidth*0.8)) {
+        scale += 0.1; // Увеличить масштаб на 10%
+        chengeScale(scale)
+    } else {
+        logMessage('Достигнут максимальный размер QR кода')
+    }
+    
+});
+
+// Уменьшение QR-кода
+zoomOutBtn.addEventListener('click', () => {
+    if (scale > 0.5) { // Не уменьшать масштаб ниже 0.5
+        scale -= 0.1; // Уменьшить масштаб на 10%
+        chengeScale(scale)
+    } else {
+        logMessage('Достигнут минимальный размер QR кода')
+    }
 });
