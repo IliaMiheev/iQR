@@ -5,6 +5,26 @@ const qrCodeDiv = document.getElementById('qr-code');
 const delBtn = document.getElementById('del-qr-btn');
 const textError = document.getElementById('error');
 
+// Получить cookie
+function getCookie(name) {
+    let cookies = document.cookie.split("; ");
+    for (let cookie of cookies) {
+        let [key, value] = cookie.split("=");
+        if (key === name) return decodeURIComponent(value);
+    }
+    return null;
+}
+
+window.onload = () => {
+    let inputText = getCookie('text');
+    if (inputText) {
+        textInput.value = inputText;
+    } else {
+        document.cookie = 'text='
+    }
+}
+
+// Вывести сообщение пользователю
 function logMessage(message, color = 'red') {
     textError.innerText = message;
     textError.style.color = color;
@@ -13,6 +33,7 @@ function logMessage(message, color = 'red') {
 // Генерация QR-кода
 function generateQRCode() {
     const text = textInput.value.trim();
+    document.cookie = `text=${text}`
     if (!text) {
         logMessage('Введите текст для генерации QR-кода!');
         return;
@@ -57,4 +78,5 @@ delBtn.addEventListener('click', () => {
     textInput.value = '';
     qrCodeDiv.innerHTML = '';
     textError.innerText = '';
+    document.cookie = 'text='
 });
