@@ -50,7 +50,7 @@ function generateQRCode() {
         }
         qrCodeDiv.appendChild(canvas);
         logMessage('');
-        canvas.style.transform = `scale(${scale})`; 
+        canvas.style.transform = `scale(${scale})`;
         canvas.style.transformOrigin = 'top';
     });
 }
@@ -87,32 +87,37 @@ delBtn.addEventListener('click', () => {
     document.cookie = 'text=';
 });
 
+// Изменить значение шкалы
 function chengeScale(scale) {
     const canvas = qrCodeDiv.querySelector('canvas');
     logMessage('')
-    if (canvas) {
-        canvas.style.transform = `scale(${scale})`;
-    }else {
-        logMessage('До генерации QR кода маштаб менять нельзя')
-    }
+    canvas.style.transform = `scale(${scale})`;
 };
 
 // Увеличение QR-кода
 zoomInBtn.addEventListener('click', () => {
     const canvas = qrCodeDiv.querySelector('canvas');
+    if (!canvas) {
+        logMessage('До генерации QR кода маштаб менять нельзя')
+        return
+    }
     let canvasWidth = canvas.getBoundingClientRect().width;
-    if (canvasWidth+0.1 < (window.innerWidth*0.8)) {
+    if (canvasWidth + 0.1 < (window.innerWidth * 0.8)) {
         scale += 0.1; // Увеличить масштаб на 10%
         chengeScale(scale)
     } else {
         logMessage('Достигнут максимальный размер QR кода')
     }
-    
 });
 
 // Уменьшение QR-кода
 zoomOutBtn.addEventListener('click', () => {
-    if (scale > 0.5) { // Не уменьшать масштаб ниже 0.5
+    const canvas = qrCodeDiv.querySelector('canvas');
+    if (!canvas) {
+        logMessage('До генерации QR кода маштаб менять нельзя')
+        return
+    }
+    if (scale > 0.5) {
         scale -= 0.1; // Уменьшить масштаб на 10%
         chengeScale(scale)
     } else {
