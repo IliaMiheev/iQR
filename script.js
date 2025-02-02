@@ -13,6 +13,7 @@ window.onload = () => {
     let inputText = localStorage.getItem('userText');
     if (inputText) {
         textInput.value = inputText;
+        generateQR()
     } else {
         localStorage.setItem('userText', '')
     }
@@ -24,8 +25,7 @@ function logMessage(message, color = 'red') {
     textError.style.color = color;
 }
 
-// Генерация QR-кода
-generateBtn.addEventListener('click', () => {
+function generateQR() {
     const userText = textInput.value.trim();
     if (!userText) {
         logMessage('Введите текст для генерации QR-кода!');
@@ -44,7 +44,15 @@ generateBtn.addEventListener('click', () => {
         canvas.style.transform = `scale(${scale})`;
         canvas.style.transformOrigin = 'top';
     })
-});
+    const canvas = qrCodeDiv.querySelector('canvas');
+    let canvasWidth = canvas.getBoundingClientRect().width;
+    if (canvasWidth > window.innerWidth * 0.8) {
+        scale = 1;
+    }
+}
+
+// Генерация QR-кода
+generateBtn.addEventListener('click', generateQR);
 
 // Скачивание QR-кода
 downloadQrBtn.addEventListener('click', () => {
@@ -104,6 +112,10 @@ zoomOutBtn.addEventListener('click', () => {
     if (!canvas) {
         logMessage('До генерации QR кода маштаб менять нельзя')
         return
+    }
+    let canvasWidth = canvas.getBoundingClientRect().width;
+    if (canvasWidth > window.innerWidth * 0.8) {
+        scale = 1;
     }
     if (scale > 0.5) {
         scale -= 0.1; // Уменьшить масштаб на 10%
