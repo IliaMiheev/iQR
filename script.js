@@ -8,22 +8,13 @@ const zoomInBtn = document.getElementById('zoom-in-btn');
 const zoomOutBtn = document.getElementById('zoom-out-btn');
 let scale = 1; // Начальный масштаб
 
-// Получить cookie
-function getCookie(name) {
-    let cookies = document.cookie.split("; ");
-    for (let cookie of cookies) {
-        let [key, value] = cookie.split("=");
-        if (key === name) return decodeURIComponent(value);
-    }
-    return null;
-}
-
+// Установление значения поля ввода из local storage
 window.onload = () => {
-    let inputText = getCookie('text');
+    let inputText = localStorage.getItem('userText');
     if (inputText) {
         textInput.value = inputText;
     } else {
-        document.cookie = 'text='
+        localStorage.setItem('userText', '')
     }
 }
 
@@ -34,15 +25,15 @@ function logMessage(message, color = 'red') {
 }
 
 // Генерация QR-кода
-function generateQRCode() {
-    const text = textInput.value.trim();
-    document.cookie = `text=${text}`
-    if (!text) {
+generateBtn.addEventListener('click', () => {
+    const userText = textInput.value.trim();
+    if (!userText) {
         logMessage('Введите текст для генерации QR-кода!');
         return;
     };
+    localStorage.setItem('userText', userText);
     qrCodeDiv.innerHTML = '';
-    QRCode.toCanvas(text, (error, canvas) => {
+    QRCode.toCanvas(userText, (error, canvas) => {
         if (error) {
             console.error(error);
             logMessage('Ошибка при генерации QR-кода.');
@@ -52,28 +43,25 @@ function generateQRCode() {
         logMessage('');
         canvas.style.transform = `scale(${scale})`;
         canvas.style.transformOrigin = 'top';
-    });
-}
-
-// Обработчик клика по кнопке "Сгенерировать"
-generateBtn.addEventListener('click', generateQRCode);
+    })
+});
 
 // Скачивание QR-кода
 downloadQrBtn.addEventListener('click', () => {
-    text = textInput.value.slice(0, 20)
+    let userText = textInput.value.slice(0, 20)
     const canvas = qrCodeDiv.querySelector('canvas');
     if (!canvas) {
         logMessage('QR-код не сгенерирован!');
         return;
     }
-    if (!text) {
+    if (!userText) {
         logMessage('Отсутствует текст в поле для ввода');
         return;
     }
 
     const link = document.createElement('a');
     link.href = canvas.toDataURL('image/png');
-    link.download = `qr-code-${text}.png`;
+    link.download = `qr-code-${userText}.png`;
     link.click();
     logMessage('QR-код скачан!', 'green');
 });
@@ -84,7 +72,7 @@ delBtn.addEventListener('click', () => {
     qrCodeDiv.innerHTML = '';
     textError.innerText = '';
     scale = 1;
-    document.cookie = 'text=';
+    localStorage.removeItem('userText');
 });
 
 // Изменить значение шкалы
