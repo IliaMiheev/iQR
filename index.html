@@ -13,7 +13,10 @@
 <!-- Разработчик: Илья) -->
 <body>
     <h1>Генератор QR-кодов</h1>
-    <textarea id="text-input" cols="30" rows="3" placeholder="Введите текст"></textarea>
+    <div class="inputs">
+        <textarea id="text-input" cols="30" rows="3" placeholder="Введите текст"></textarea>
+        <input title="Изменить тему" id="isLightTheme" type="checkbox" >
+    </div>
     <br>
     <button id="generate-btn">Сгенерировать QR-код</button>
     <button id="download-qr-btn">Скачать QR-код</button>

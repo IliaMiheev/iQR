@@ -7,6 +7,8 @@ const textError = document.getElementById('error');
 const zoomInBtn = document.getElementById('zoom-in-btn');
 const zoomOutBtn = document.getElementById('zoom-out-btn');
 let scale = 1; // Начальный масштаб
+const checkbox = document.getElementById('isLightTheme');
+const html = document.getElementsByTagName('html')[0];
 
 // Установление значения поля ввода из local storage
 window.onload = () => {
@@ -18,6 +20,25 @@ window.onload = () => {
         localStorage.setItem('userText', '')
     }
 }
+
+function changeButtonsColor(color) {
+    const buttons = document.getElementsByTagName('button');
+    for (let index = 0; index < buttons.length; index++) {
+        const btn = buttons[index];
+        btn.style.color = color;
+    }
+}
+
+checkbox.addEventListener('change', () => {
+    if (checkbox.checked) {
+        html.style.backgroundColor = '#fff';
+        changeButtonsColor('#1e1e1e')
+    } else {
+        html.style.backgroundColor = '#1e1e1e';
+        changeButtonsColor('#fff')
+    }
+})
+
 
 // Вывести сообщение пользователю
 function logMessage(message, color = 'red') {

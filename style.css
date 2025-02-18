@@ -3,11 +3,13 @@
     color: white;
 }
 
+html {
+    background-color: #1e1e1e;
+}
+
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
-    background-color: #1e1e1e;
+    margin: 0;
     text-align: center;
 }
 
@@ -15,17 +17,23 @@ h1 {
     color: orangered;
 }
 
+.inputs {
+    display: flex;
+    justify-content: center;
+}
+
 textarea,
 button {
     padding: 10px;
     margin: 10px;
-    border: 1px solid #333;
+    border: none;
     border-radius: 5px;
     font-size: 16px;
 }
 
 textarea {
     color: orangered;
+    border: 1px solid #000;
 }
 
 textarea::selection {
@@ -54,4 +62,8 @@ button:active {
 #qr-code img {
     max-width: 100%;
     height: auto;
+}
+
+canvas {
+    border: 1px solid #000;
 }
