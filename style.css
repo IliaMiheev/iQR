@@ -9,7 +9,7 @@ html {
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin: 20px;
     text-align: center;
 }
 
@@ -39,6 +39,10 @@ textarea {
 textarea::selection {
     background-color: orangered;
     color: white;
+}
+
+input[type='checkbox'] {
+    accent-color: orangered;
 }
 
 button {

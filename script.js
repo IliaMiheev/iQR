@@ -6,12 +6,21 @@ const delBtn = document.getElementById('del-qr-btn');
 const textError = document.getElementById('error');
 const zoomInBtn = document.getElementById('zoom-in-btn');
 const zoomOutBtn = document.getElementById('zoom-out-btn');
-let scale = 1; // Начальный масштаб
 const checkbox = document.getElementById('isLightTheme');
 const html = document.getElementsByTagName('html')[0];
+let scale = 1; // Начальный масштаб
 
-// Установление значения поля ввода из local storage
+// Установление значения поля ввода из local storage и темы сайта
 window.onload = () => {
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    if (darkModeMediaQuery.matches) {
+        html.style.backgroundColor = '#1e1e1e';
+        changeButtonsColor('#fff')
+    } else {
+        html.style.backgroundColor = '#fff';
+        changeButtonsColor('#1e1e1e')
+    }
+
     let inputText = localStorage.getItem('userText');
     if (inputText) {
         textInput.value = inputText;
@@ -21,6 +30,7 @@ window.onload = () => {
     }
 }
 
+// Изменение цвета текста в кнопках
 function changeButtonsColor(color) {
     const buttons = document.getElementsByTagName('button');
     for (let index = 0; index < buttons.length; index++) {
@@ -29,6 +39,7 @@ function changeButtonsColor(color) {
     }
 }
 
+// Изменение темы сайта при клике
 checkbox.addEventListener('change', () => {
     if (checkbox.checked) {
         html.style.backgroundColor = '#fff';
@@ -46,12 +57,14 @@ function logMessage(message, color = 'red') {
     textError.style.color = color;
 }
 
+// Функция для генерации QR-кода
 function generateQR() {
     const userText = textInput.value.trim();
     if (!userText) {
         logMessage('Введите текст для генерации QR-кода!');
         return;
     };
+
     localStorage.setItem('userText', userText);
     qrCodeDiv.innerHTML = '';
     QRCode.toCanvas(userText, (error, canvas) => {
@@ -65,6 +78,7 @@ function generateQR() {
         canvas.style.transform = `scale(${scale})`;
         canvas.style.transformOrigin = 'top';
     })
+
     const canvas = qrCodeDiv.querySelector('canvas');
     let canvasWidth = canvas.getBoundingClientRect().width;
     if (canvasWidth > window.innerWidth * 0.8) {
@@ -118,6 +132,7 @@ zoomInBtn.addEventListener('click', () => {
         logMessage('До генерации QR кода маштаб менять нельзя')
         return
     }
+
     let canvasWidth = canvas.getBoundingClientRect().width;
     if (canvasWidth + 0.1 < (window.innerWidth * 0.8)) {
         scale += 0.1; // Увеличить масштаб на 10%
@@ -134,10 +149,12 @@ zoomOutBtn.addEventListener('click', () => {
         logMessage('До генерации QR кода маштаб менять нельзя')
         return
     }
+
     let canvasWidth = canvas.getBoundingClientRect().width;
     if (canvasWidth > window.innerWidth * 0.8) {
         scale = 1;
     }
+
     if (scale > 0.5) {
         scale -= 0.1; // Уменьшить масштаб на 10%
         chengeScale(scale)
