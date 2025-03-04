@@ -12,6 +12,7 @@ let scale = 1; // Начальный масштаб
 
 // Установление значения поля ввода из local storage и темы сайта
 window.onload = () => {
+    // Установка темы сайта
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     if (darkModeMediaQuery.matches) {
         html.style.backgroundColor = '#1e1e1e';
@@ -21,6 +22,13 @@ window.onload = () => {
         changeButtonsColor('#1e1e1e')
     }
 
+    // Восстановление масштаба
+    let oldScale = localStorage.getItem('scale')
+    if (oldScale) {
+        scale = oldScale
+    }
+
+    // Восстановление QR кода
     let inputText = localStorage.getItem('userText');
     if (inputText) {
         textInput.value = inputText;
@@ -116,6 +124,7 @@ delBtn.addEventListener('click', () => {
     textError.innerText = '';
     scale = 1;
     localStorage.removeItem('userText');
+    localStorage.removeItem('scale');
 });
 
 // Изменить значение шкалы
@@ -133,6 +142,7 @@ zoomInBtn.addEventListener('click', () => {
         return
     }
 
+    localStorage.setItem('scale', scale)
     let canvasWidth = canvas.getBoundingClientRect().width;
     if (canvasWidth + 0.1 < (window.innerWidth * 0.8)) {
         scale += 0.1; // Увеличить масштаб на 10%
@@ -150,6 +160,7 @@ zoomOutBtn.addEventListener('click', () => {
         return
     }
 
+    localStorage.setItem('scale', scale)
     let canvasWidth = canvas.getBoundingClientRect().width;
     if (canvasWidth > window.innerWidth * 0.8) {
         scale = 1;
