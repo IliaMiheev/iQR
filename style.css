@@ -5,6 +5,7 @@
 
 html {
     background-color: #1e1e1e;
+    cursor: url(Orange_cursor.png) , default !important
 }
 
 body {
@@ -22,6 +23,14 @@ body {
 h1 {
     margin: 0;
     color: orangered;
+}
+
+img {
+    cursor: url(Orange_pointer.png), pointer !important;
+}
+
+a {
+    cursor: url(Orange_cursor.png), pointer !important;
 }
 
 .inputs {
@@ -50,12 +59,14 @@ textarea::selection {
 
 input[type='checkbox'] {
     accent-color: orangered;
+    cursor: url(Orange_pointer.png), pointer !important;
 }
 
 button {
     background-color: orangered;
     color: #fff;
     cursor: pointer;
+    cursor: url(Orange_pointer.png), pointer !important;
 }
 
 button::selection {
