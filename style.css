@@ -48,11 +48,18 @@ button {
 }
 
 .btns {
-    margin: auto;
+    margin: 7px auto;
     width: 60%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
+}
+
+.btns1 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.btns2 {
+    grid-template-columns: 1fr 1fr;
 }
 
 @media (max-width:500px) {
@@ -85,6 +92,7 @@ textarea::selection {
 input[type='checkbox'] {
     accent-color: orangered;
     cursor: url(img/Orange_pointer.png), pointer !important;
+    margin: auto 0;
 }
 
 button {
