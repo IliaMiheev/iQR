@@ -30,6 +30,7 @@
 </head>
 
 <!-- Разработчик: Илья) -->
+
 <body>
     <div class="logo">
         <h1 id="h1">Генератор QR-кодов</h1>
@@ -40,16 +41,20 @@
 
     <div class="inputs">
         <textarea id="text-input" cols="30" rows="3" placeholder="Введите текст"></textarea>
-        <input title="Изменить тему" id="isLightTheme" type="checkbox" >
+        <input title="Изменить тему" id="isLightTheme" type="checkbox">
     </div>
-    <br>
-    <button id="generate-btn">Сгенерировать QR-код</button>
-    <button id="download-qr-btn">Скачать QR-код</button>
-    <button id="del-qr-btn">Очистить поля</button>
+
+    <div class="btns">
+        <button class="btn" id="generate-btn" title="Создать QR-код">Создать</button>
+        <button class="btn" id="download-qr-btn" title="Скачать QR-код">Скачать</button>
+        <button class="btn3" id="del-qr-btn">Очистить поля</button>
+    </div>
+
     <div class="zoom-buttons">
         <button id="zoom-in-btn">Увеличить</button>
         <button id="zoom-out-btn">Уменьшить</button>
     </div>
+
     <p id="error"></p>
     <div id="qr-code"></div>
 

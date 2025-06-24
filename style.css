@@ -47,6 +47,31 @@ button {
     font-size: 16px;
 }
 
+.btns {
+    margin: auto;
+    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+@media (max-width:500px) {
+    .btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 8px;
+    }
+
+    .btn3 {
+        grid-column: 1 / -1; /* Занимает обе колонки */
+    }
+}
+
+.btns button {
+    margin: 0;
+}
+
 textarea {
     color: orangered;
     border: 1px solid #000;
