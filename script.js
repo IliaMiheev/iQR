@@ -10,16 +10,33 @@ const checkbox = document.getElementById('isLightTheme');
 const html = document.getElementsByTagName('html')[0];
 let scale = 1; // Начальный масштаб
 
+function createTheme(nameTheme) {
+    if (nameTheme == 'dark') {
+        html.style.backgroundColor = '#1e1e1e';
+        changeButtonsColor('#fff')
+    } else if (nameTheme == 'light') {
+        html.style.backgroundColor = '#fff';
+        changeButtonsColor('#1e1e1e')
+    }
+}
+
 // Установление значения поля ввода из local storage и темы сайта
 window.onload = () => {
     // Установка темы сайта
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    if (darkModeMediaQuery.matches) {
-        html.style.backgroundColor = '#1e1e1e';
-        changeButtonsColor('#fff')
+    let oldTheme = localStorage.getItem('theme')
+    if (oldTheme){
+        createTheme(oldTheme)
+
+        if (oldTheme == 'light') {
+            checkbox.checked = 1
+        }
     } else {
-        html.style.backgroundColor = '#fff';
-        changeButtonsColor('#1e1e1e')
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        if (darkModeMediaQuery.matches) {
+            createTheme('dark')
+        } else {
+            createTheme('light')
+        }
     }
 
     // Восстановление масштаба
@@ -33,8 +50,6 @@ window.onload = () => {
     if (inputText) {
         textInput.value = inputText;
         generateQR()
-    } else {
-        localStorage.setItem('userText', '')
     }
 }
 
@@ -49,12 +64,13 @@ function changeButtonsColor(color) {
 
 // Изменение темы сайта при клике
 checkbox.addEventListener('change', () => {
-    if (checkbox.checked) {
-        html.style.backgroundColor = '#fff';
-        changeButtonsColor('#1e1e1e')
+    const theme = localStorage.getItem('theme')
+    if (theme == 'dark') {
+        createTheme('light')
+        localStorage.setItem('theme', 'light')
     } else {
-        html.style.backgroundColor = '#1e1e1e';
-        changeButtonsColor('#fff')
+        createTheme('dark')
+        localStorage.setItem('theme', 'dark')
     }
 })
 
