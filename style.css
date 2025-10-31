@@ -5,7 +5,7 @@
 
 html {
     background-color: #1e1e1e;
-    cursor: url(img/Orange_cursor.png) , default !important
+    cursor: url(img/Orange_cursor.png), default !important
 }
 
 body {
@@ -46,6 +46,64 @@ button {
     border-radius: 5px;
     font-size: 16px;
 }
+
+/* Начало стилей для переключателя темы */
+.themeSwitch input[type="checkbox"] {
+    display: none;
+    visibility: hidden;
+}
+
+.themeSwitch {
+    --size: 50px;
+}
+
+.themeSwitch .block {
+    position: relative;
+    clear: both;
+    float: left;
+}
+
+.themeSwitch label {
+    width: var(--size);
+    height: calc(var(--size) / 2);
+    box-sizing: border-box;
+    border: 3px solid;
+    float: left;
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+    transition: .3s ease;
+    color: black;
+    background: white;
+    cursor: url(img/Orange_pointer.png), pointer !important;
+    margin-top: 10px;
+}
+
+.themeSwitch input[type=checkbox]:checked+label {
+    background: orangered;
+}
+
+.themeSwitch input[type=checkbox]:checked+label:before {
+    left: calc(var(--size) / 2);
+    background: white;
+}
+
+.themeSwitch label:before {
+    transition: .3s ease;
+    content: '';
+    width: calc((var(--size) / 2) - 10px);
+    height: calc((var(--size) / 2) - 10px);
+    position: absolute;
+    background: orangered;
+    left: 5px;
+    top: 2px;
+    box-sizing: border-box;
+    border: 3px solid;
+    color: black;
+    border-radius: 100px;
+}
+
+/* Конец стилей для переключателя темы */
 
 .btns {
     margin: 7px auto;
