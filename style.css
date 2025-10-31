@@ -120,6 +120,10 @@ button {
     grid-template-columns: 1fr 1fr;
 }
 
+.btns2 button{
+    font-size: 1.5em;
+}
+
 @media (max-width:500px) {
     .btns {
         display: grid;
